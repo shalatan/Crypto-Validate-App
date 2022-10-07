@@ -27,8 +27,12 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater)
 
-        binding.message.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_informationFragment)
+        binding.buttonBtc.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_scannerFragment)
+        }
+
+        binding.buttonEth.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_scannerFragment)
         }
         return binding.root
     }

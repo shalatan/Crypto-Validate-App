@@ -11,11 +11,21 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_informationFragment"
-            app:destination="@id/informationFragment" />
+            android:id="@+id/action_mainFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/informationFragment"
         android:name="com.example.cryptovalidateapp.ui.info.InformationFragment"
-        android:label="InformationFragment" />
+        android:label="InformationFragment"
+        tools:layout="@layout/fragment_information" />
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.example.cryptovalidateapp.ui.scanner.ScannerFragment"
+        android:label="ScannerFragment"
+        tools:layout="@layout/fragment_scanner">
+        <action
+            android:id="@+id/action_scannerFragment_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
 </navigation>
