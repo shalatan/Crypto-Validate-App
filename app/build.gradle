@@ -78,4 +78,7 @@ dependencies {
     // MLToolKit
     implementation 'com.google.mlkit:barcode-scanning:17.0.2'
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 }

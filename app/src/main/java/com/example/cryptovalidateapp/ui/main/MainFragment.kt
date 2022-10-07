@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.cryptovalidateapp.MainViewModel
 import com.example.cryptovalidateapp.R
 import com.example.cryptovalidateapp.databinding.FragmentMainBinding
+import timber.log.Timber
 
 class MainFragment : Fragment() {
 
@@ -24,13 +25,11 @@ class MainFragment : Fragment() {
 
         binding.buttonBtc.setOnClickListener {
             mainViewModel.updateCryptoValue("btc")
+            findNavController().navigate(R.id.action_mainFragment_to_scannerFragment)
         }
 
         binding.buttonEth.setOnClickListener {
             mainViewModel.updateCryptoValue("eth")
-        }
-
-        mainViewModel.cryptoLiveData.observe(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_mainFragment_to_scannerFragment)
         }
         return binding.root

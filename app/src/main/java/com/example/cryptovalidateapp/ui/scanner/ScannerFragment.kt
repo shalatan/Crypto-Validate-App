@@ -1,7 +1,6 @@
 package com.example.cryptovalidateapp.ui.scanner
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,19 +28,13 @@ class ScannerFragment : Fragment() {
     ): View {
         binding = FragmentScannerBinding.inflate(inflater)
 
-        Log.e("Testing SF", mainViewModel.cryptoLiveData.value.toString())
-        Log.e("Testing SF", mainViewModel.cryptoAddressLiveData.value.toString())
-
         scannerView = binding.scanner
         codeScanner = CodeScanner(requireActivity(), scannerView)
         codeScanner.decodeCallback = DecodeCallback {
             requireActivity().runOnUiThread {
                 mainViewModel.updateCryptoAddressLiveData(it.text)
+                findNavController().navigate(R.id.action_scannerFragment_to_informationFragment)
             }
-        }
-
-        mainViewModel.cryptoAddressLiveData.observe(viewLifecycleOwner) {
-            findNavController().navigate(R.id.action_scannerFragment_to_informationFragment)
         }
 
         return binding.root
