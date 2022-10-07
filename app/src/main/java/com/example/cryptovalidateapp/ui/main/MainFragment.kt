@@ -1,25 +1,20 @@
 package com.example.cryptovalidateapp.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.cryptovalidateapp.MainViewModel
 import com.example.cryptovalidateapp.R
 import com.example.cryptovalidateapp.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +23,14 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(inflater)
 
         binding.buttonBtc.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_scannerFragment)
+            mainViewModel.updateCryptoValue("btc")
         }
 
         binding.buttonEth.setOnClickListener {
+            mainViewModel.updateCryptoValue("eth")
+        }
+
+        mainViewModel.cryptoLiveData.observe(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_mainFragment_to_scannerFragment)
         }
         return binding.root
