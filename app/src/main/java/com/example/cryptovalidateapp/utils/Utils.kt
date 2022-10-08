@@ -47,5 +47,5 @@ fun validateETHAddress(address: String): Boolean {
             }
         }
     }
-    return false
+    return true
 }

@@ -19,7 +19,9 @@ const val PERMISSION_CAMERA_REQUEST = 1234
 
 class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var layout: View
@@ -28,7 +30,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater)
+        _binding = FragmentMainBinding.inflate(inflater)
 
         layout = binding.root
 
@@ -45,10 +47,11 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    private fun navigate(){
+    private fun navigateToScanner(){
         findNavController().navigate(R.id.action_mainFragment_to_scannerFragment)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -59,7 +62,7 @@ class MainFragment : Fragment() {
             if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission has been granted. Start camera preview Activity.
                 layout.showSnackBar("Camera Permission Granted")
-                navigate()
+                navigateToScanner()
             } else {
                 // Permission request was denied.
                 layout.showSnackBar("Camera Permission Denied")
@@ -77,7 +80,7 @@ class MainFragment : Fragment() {
             PackageManager.PERMISSION_GRANTED
         ) {
             // Permission is available
-            navigate()
+            navigateToScanner()
         } else {
             // Permission is missing
             requestCameraPermission()
@@ -108,5 +111,13 @@ class MainFragment : Fragment() {
                 PERMISSION_CAMERA_REQUEST
             )
         }
+    }
+
+    /**
+     * destroy the binding data to prevent View leaks
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

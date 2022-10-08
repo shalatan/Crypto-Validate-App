@@ -16,7 +16,9 @@ import com.example.cryptovalidateapp.databinding.FragmentScannerBinding
 
 class ScannerFragment : Fragment() {
 
-    private lateinit var binding: FragmentScannerBinding
+    private var _binding: FragmentScannerBinding? = null
+    private val binding get() = _binding!!
+
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var codeScanner: CodeScanner
@@ -26,7 +28,7 @@ class ScannerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentScannerBinding.inflate(inflater)
+        _binding = FragmentScannerBinding.inflate(inflater)
 
         scannerView = binding.scanner
         codeScanner = CodeScanner(requireActivity(), scannerView)
@@ -43,10 +45,17 @@ class ScannerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         codeScanner.startPreview()
+        // clear previous validation result if we are coming from InformationFragment
+        mainViewModel.clearAddressValidData()
     }
 
     override fun onPause() {
         super.onPause()
         codeScanner.releaseResources()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

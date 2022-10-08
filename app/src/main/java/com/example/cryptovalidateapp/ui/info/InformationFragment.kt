@@ -16,14 +16,16 @@ import com.example.cryptovalidateapp.utils.validateETHAddress
 
 class InformationFragment : Fragment() {
 
-    private lateinit var binding: FragmentInformationBinding
+    private var _binding: FragmentInformationBinding? = null
+    private val binding get() = _binding!!
+
     private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentInformationBinding.inflate(inflater)
+        _binding = FragmentInformationBinding.inflate(inflater)
 
         val cryptoName = mainViewModel.cryptoLiveData.value
         val cryptoAddress = mainViewModel.cryptoAddressLiveData.value ?: ""
@@ -75,5 +77,10 @@ class InformationFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
