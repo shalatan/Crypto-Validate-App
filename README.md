@@ -9,8 +9,9 @@ App is a Single Activity Application developed using Kotlin and XML based on MVV
 ## Demo
 
 <p align="center">
-<img src="content/btcdemo.gif" width="40%"/>
-<img src="content/eth.gif" width="40%"/>
+<img src="content/btcdemo.gif" width="30%"/>
+<img src="content/eth1demo.gif" width="30%"/>
+<img src="content/eth2demo.gif" width="30%"/>
 </p>
 
 ## Libraries
