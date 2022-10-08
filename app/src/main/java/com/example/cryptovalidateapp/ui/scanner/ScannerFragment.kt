@@ -10,9 +10,11 @@ import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
+import com.budiyev.android.codescanner.ErrorCallback
 import com.example.cryptovalidateapp.MainViewModel
 import com.example.cryptovalidateapp.R
 import com.example.cryptovalidateapp.databinding.FragmentScannerBinding
+import com.example.cryptovalidateapp.utils.showSnackBar
 
 class ScannerFragment : Fragment() {
 
@@ -38,7 +40,11 @@ class ScannerFragment : Fragment() {
                 findNavController().navigate(R.id.action_scannerFragment_to_informationFragment)
             }
         }
-
+        codeScanner.errorCallback = ErrorCallback {
+            requireActivity().runOnUiThread {
+                binding.scanner.showSnackBar("Camera initialization error: ${it.message}")
+            }
+        }
         return binding.root
     }
 

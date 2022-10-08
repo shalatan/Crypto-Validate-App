@@ -104,7 +104,6 @@ class MainFragment : Fragment() {
                 )
             }
         } else {
-            layout.showSnackBar("Camera Permission not granted")
             // Request the permission
             requireActivity().requestPermissionsCompat(
                 arrayOf(Manifest.permission.CAMERA),

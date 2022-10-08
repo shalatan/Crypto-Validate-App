@@ -20,6 +20,10 @@ fun View.showSnackBarWithAction(
     }.show()
 }
 
+/**
+ * validate the address with Bitcoin Validation Rules
+ * @param address : address to be validated
+ */
 fun validateBTCAddress(address: String): Boolean {
     Timber.tag("Testing").e("validatingBtcAddress")
     if (address.length !in 26..35) return false
@@ -34,6 +38,10 @@ fun validateBTCAddress(address: String): Boolean {
     return true
 }
 
+/**
+ * validate the address with Ethereum Validation Rules
+ * @param address : address to be validated
+ */
 fun validateETHAddress(address: String): Boolean {
     Timber.tag("Testing").e("validatingEthAddress")
     if (address[0] == '0' && address[1] == 'x') {
