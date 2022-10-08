@@ -9,7 +9,7 @@ class MainViewModel : ViewModel() {
     val cryptoLiveData = MutableLiveData<String>()
     val cryptoAddressLiveData = MutableLiveData<String>()
 
-    val isAddressValid = MutableLiveData<Boolean>()
+    val isAddressValid = MutableLiveData<Boolean?>()
 
     fun updateIsAddressValid(isValid:Boolean){
         Timber.tag("Testing").d("updatingIsAddressValid with $isValid")
@@ -22,5 +22,9 @@ class MainViewModel : ViewModel() {
 
     fun updateCryptoAddressLiveData(address: String) {
         cryptoAddressLiveData.value = address
+    }
+
+    fun clearAddressValidData(){
+        isAddressValid.value = null
     }
 }

@@ -8,6 +8,18 @@ fun View.showSnackBar(message: String) {
     Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
 }
 
+fun View.showSnackBarWithAction(
+    message: String,
+    length: Int,
+    actionMessage: String,
+    action: (View) -> Unit
+) {
+    val snackbar = Snackbar.make(this,message,length)
+    snackbar.setAction(actionMessage){
+        action(this)
+    }.show()
+}
+
 fun validateBTCAddress(address: String): Boolean {
     Timber.tag("Testing").e("validatingBtcAddress")
     if (address.length !in 26..35) return false

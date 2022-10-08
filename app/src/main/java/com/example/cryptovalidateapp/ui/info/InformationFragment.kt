@@ -31,7 +31,8 @@ class InformationFragment : Fragment() {
         binding.textCoin.text = cryptoName
         binding.textAddress.text = cryptoAddress
 
-        binding.buttonValidate.setOnClickListener {
+        val validateButton = binding.buttonValidate
+        validateButton.setOnClickListener {
             if (cryptoName == "btc") {
                 mainViewModel.updateIsAddressValid(validateBTCAddress(cryptoAddress))
             } else if (cryptoName == "eth") {
@@ -42,17 +43,21 @@ class InformationFragment : Fragment() {
         val shareButton = binding.buttonShare
         val verifiedText = binding.textVerified
         mainViewModel.isAddressValid.observe(viewLifecycleOwner) {
-            shareButton.isEnabled = it
-            if (it) {
-                verifiedText.apply {
-                    text = "Address Validated"
-                    setTextColor(resources.getColor(R.color.verified))
+            if (it != null) {
+                shareButton.isEnabled = it
+                if (it) {
+                    validateButton.text = "Address Validated"
+                    verifiedText.apply {
+                        text = "Address Validated"
+                        setTextColor(resources.getColor(R.color.verified))
+                    }
+                } else {
+                    verifiedText.apply {
+                        text = "Address Invalid"
+                        setTextColor(resources.getColor(R.color.not_verified))
+                    }
                 }
-            }else{
-                verifiedText.apply {
-                    text = "Address Invalid"
-                    setTextColor(resources.getColor(R.color.not_verified))
-                }
+                validateButton.isEnabled = false
             }
         }
 
@@ -69,7 +74,6 @@ class InformationFragment : Fragment() {
                 it.showSnackBar("Validate address first to share")
             }
         }
-
         return binding.root
     }
 }
